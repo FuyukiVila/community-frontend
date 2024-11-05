@@ -4,15 +4,15 @@
             <span>🔗 友情链接</span>
         </div>
         <div>
-            <p v-for="(item, index) in list" :key="index" class="block">
-                <a :href="item.link" target="_blank">{{ item.title }}</a>
-            </p>
+            <span v-for="(item, index) in list" :key="index" class="block">
+                <a :href="item.link" target="_blank">{{ item.title }}  </a>
+            </span>
         </div>
     </el-card>
 </template>
 
 <script>
-// import { getList } from '@/api/promote'
+import { getList } from '@/api/promotion'
 
 export default {
     name: 'Promotion',
@@ -27,7 +27,7 @@ export default {
         }
     },
     created() {
-        // this.fetchList()
+        this.fetchList()
     },
     methods: {
         fetchList() {
