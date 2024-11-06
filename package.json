@@ -10,6 +10,7 @@
     "axios": "^1.7.7",
     "buefy": "^0.9.29",
     "core-js": "^3.8.3",
+    "darkreader": "^4.9.96",
     "element-ui": "^2.15.14",
     "js-cookie": "^3.0.5",
     "ts-loader": "^9.5.1",
