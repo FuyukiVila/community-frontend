@@ -107,7 +107,7 @@ export default {
                                 })
                                 setTimeout(() => {
                                     this.loading = false
-                                    this.$router.push({ path: this.redirect || '/login' })
+                                    this.$router.replace({ path: '/login' })
                                 }, 0.1 * 1000)
                             } else {
                                 this.$message.error('注册失败，' + message)

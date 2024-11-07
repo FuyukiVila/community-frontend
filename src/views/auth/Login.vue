@@ -81,7 +81,7 @@ export default {
 
                             setTimeout(() => {
                                 this.loading = false;
-                                this.$router.push({ path: this.redirect || "/" });
+                                this.$router.replace({ path: "/" });
                             }, 0.1 * 1000);
                         })
                         .catch(() => {

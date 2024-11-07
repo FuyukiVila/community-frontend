@@ -94,7 +94,9 @@ export default {
             this.$store.dispatch('user/logout').then(() => {
                 this.$message.info('退出登录成功')
                 setTimeout(() => {
-                    this.$router.push({ path: this.redirect || '/' })
+                    if(this.$route.path !== '/') {
+                        this.$router.replace({ path: '/' })
+                    }
                 }, 500)
             })
         },
@@ -108,7 +110,7 @@ export default {
                 })
                 return false
             }
-            this.$router.push({ path: '/search?key=' + this.searchKey })
+            this.$router.replace({ path: '/search?key=' + this.searchKey })
         }
     }
 }

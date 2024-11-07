@@ -6,6 +6,9 @@ import getters from './getters'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
+  state: {
+    author: 'Fuyuki_Vila'
+  },
   modules: {
     user
   },

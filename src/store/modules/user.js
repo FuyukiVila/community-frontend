@@ -25,7 +25,12 @@ const actions = {
                 .then((response) => {
                     const { data } = response;
                     commit("SET_TOKEN_STATE", data.token);
-                    setToken(data.token);
+                    if (rememberMe) {
+                        setToken(data.token);
+                    }
+                    else{
+                        setToken(data.token, 1);
+                    }
                     resolve();
                 })
                 .catch((error) => {

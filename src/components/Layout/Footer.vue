@@ -41,8 +41,8 @@ export default {
     },
     data() {
         return {
-            author: 'Fuyuki_Vila',
-            title: "© " + new Date().getFullYear() + ' Fuyuki_Vila',
+            author: this.$store.getters.author,
+            title: "© " + new Date().getFullYear() + ' ' + this.$store.getters.author,
         };
     },
 };
