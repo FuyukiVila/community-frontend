@@ -16,21 +16,29 @@ export default {
     name: "404",
     data() {
         return {
-            times: 10
+            times: 10,
+            timer: null
         }
     },
     created() {
         this.goHome();
     },
+    beforeDestroy() {
+        if (this.timer) {
+            clearInterval(this.timer);
+        }
+    },
     methods: {
         goHome: function () {
             this.timer = setInterval(() => {
-                this.times--
+                this.times--;
                 if (this.times === 0) {
-                    clearInterval(this.timer)
-                    this.$router.push({ path: '/' });
+                    clearInterval(this.timer);
+                    if (this.$route.path !== '/') {
+                        this.$router.push({ path: '/' });
+                    }
                 }
-            }, 1000)
+            }, 1000);
         }
     }
 }
