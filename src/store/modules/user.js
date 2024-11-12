@@ -1,5 +1,5 @@
-import { getUserInfo, login, logout } from "@/api/auth/auth";
-import { getToken, setToken, removeToken } from "@/utils/auth";
+import {getUserInfo, login, logout} from "@/api/auth/auth";
+import {getToken, removeToken, setToken} from "@/utils/auth";
 
 const state = {
     token: getToken(), // token
@@ -21,7 +21,7 @@ const actions = {
         console.log(userInfo);
         const { name, pass, rememberMe } = userInfo;
         return new Promise((resolve, reject) => {
-            login({ username: name.trim(), password: pass, rememberMe: rememberMe })
+            login({username: name.trim().toLowerCase(), password: pass, rememberMe: rememberMe})
                 .then((response) => {
                     const { data } = response;
                     commit("SET_TOKEN_STATE", data.token);
