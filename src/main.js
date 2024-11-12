@@ -17,6 +17,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 
 // 国际化
 import 'dayjs/locale/zh-cn'
+
 const dayjs = require('dayjs');
 
 // 相对时间插件
@@ -28,7 +29,7 @@ dayjs().locale('zh-cn').format() // use locale in a specific instance
 Vue.prototype.dayjs = dayjs;//可以全局使用dayjs
 
 Vue.filter('date', (date) => {
-  return format(new Date(date), 'yyyy-MM-dd')
+    return format(new Date(date), 'yyyy-MM-dd')
 })
 
 Vue.use(Buefy)
@@ -37,7 +38,5 @@ Vue.use(ElementUI);
 Vue.config.productionTip = false
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router, store, render: h => h(App)
 }).$mount('#app')

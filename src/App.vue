@@ -1,3 +1,4 @@
+<script src="permission.js"></script>
 <template>
   <div>
     <div class="mb-5">
@@ -15,7 +16,8 @@
 <script>
 import Header from "@/components/Layout/Header"
 import Footer from "@/components/Layout/Footer.vue";
-export default{
+
+export default {
   name: "App",
   components: {
     Header, Footer
