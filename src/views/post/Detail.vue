@@ -83,15 +83,14 @@
 import {deleteTopic, getTopic} from '@/api/post'
 import {mapGetters} from 'vuex'
 import Author from '@/views/post/Author'
-// import Recommend from '@/views/post/Recommend'
+import Recommend from '@/views/post/Recommend'
 // import LvComments from '@/components/Comment/Comments'
 import Vditor from 'vditor'
 import 'vditor/dist/index.css'
 
 export default {
   name: 'TopicDetail',
-  // components: { Author, Recommend, LvComments },
-  components: {Author},
+  components: {Author, Recommend},
   computed: {
     ...mapGetters([
       'token', 'user'
