@@ -8,6 +8,7 @@
         v-for="comment in comments"
         :key="`comment-${comment.id}`"
         :comment="comment"
+        @loadComments="fetchComments"
     />
   </section>
 </template>
@@ -50,6 +51,8 @@ export default {
       fetchCommentsByTopicId(topic_id).then(response => {
         const {data} = response
         this.comments = data
+      }).catch(error => {
+        console.log(error)
       })
     }
   }

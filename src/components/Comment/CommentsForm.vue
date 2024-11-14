@@ -6,7 +6,7 @@
           <b-input
               v-model.lazy="commentText"
               :disabled="isLoading"
-              maxlength="400"
+              maxlength="100"
               placeholder="Add a comment..."
               type="textarea"
           ></b-input>
@@ -47,6 +47,12 @@ export default {
   },
   methods: {
     async onSubmit() {
+      if (!this.commentText.trim()) {
+        this.$message.error({
+          message: '评论不能为空',
+        })
+        return
+      }
       this.isLoading = true
       try {
         let postData = {}

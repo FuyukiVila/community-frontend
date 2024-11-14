@@ -70,6 +70,8 @@ export default {
         hasFollow(this.user.id).then(value => {
           const {data} = value
           this.hasFollow = data.hasFollow
+        }).catch(error => {
+          console.log(error)
         })
       }
     },
@@ -81,6 +83,7 @@ export default {
           this.hasFollow = !this.hasFollow
           this.user.followerCount = parseInt(this.user.followerCount) + 1
         }).catch(error => {
+          console.log(error)
         })
       } else {
         this.$message.success('请先登录')
@@ -92,6 +95,8 @@ export default {
         this.$message.success(message)
         this.hasFollow = !this.hasFollow
         this.user.followerCount = parseInt(this.user.followerCount) - 1
+      }).catch(error => {
+        console.log(error)
       })
     }
   }

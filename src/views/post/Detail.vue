@@ -41,20 +41,19 @@
               </b-taglist>
             </p>
           </div>
-          <div
-              v-if="token && user.id === topicUser.id"
-              class="level-right"
+          <div v-if="token && (user.id === topicUser.id || user.isAdmin)"
+               class="level-right"
           >
-            <router-link
-                :to="{name:'topic-edit',params: {id:topic.id}}"
-                class="level-item"
+            <router-link v-if="user.id === topicUser.id"
+                         :to="{name:'topic-edit',params: {id:topic.id}}"
+                         class="level-item"
             >
               <span class="tag">编辑</span>
             </router-link>
             <a class="level-item">
-              <span
-                  class="tag"
-                  @click="handleDelete(topic.id)"
+              <span v-if=" user.id === topicUser.id || user.isAdmin"
+                    class="tag"
+                    @click="handleDelete(topic.id)"
               >删除</span>
             </a>
           </div>
@@ -109,7 +108,8 @@ export default {
     }
   },
   mounted() {
-    this.fetchTopic()
+    this.fetchTopic().catch(error => {
+    })
   },
   methods: {
     renderMarkdown(md) {
@@ -129,18 +129,20 @@ export default {
         // this.comments = data.comments
         this.renderMarkdown(this.topic.content)
         this.flag = true
+      }).catch(error => {
       })
     },
     handleDelete(id) {
       deleteTopic(id).then(value => {
         const {code, message} = value
-        alert(message)
+        this.$message.success(message)
 
         if (code === 200) {
           setTimeout(() => {
             this.$router.push({path: '/'})
           }, 500)
         }
+      }).catch(error => {
       })
     }
   }

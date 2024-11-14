@@ -4,14 +4,14 @@
             <div class="">
                 <span>A simple community</span>
 
-                <span style="float: right">
-                    <router-link :to="{ path: '/admin/login' }">
-                        管理员登录
-                    </router-link>
-                    |
-                    <a href="/?lang=zh_CN">中文</a> |
-                    <a href="/?lang=en_US">English</a>
-                </span>
+              <!--                <span style="float: right">-->
+              <!--                    <router-link :to="{ path: '/admin/login' }">-->
+              <!--                        管理员登录-->
+              <!--                    </router-link>-->
+              <!--                    |-->
+              <!--                    <a href="/?lang=zh_CN">中文</a> |-->
+              <!--                    <a href="/?lang=en_US">English</a>-->
+              <!--                </span>-->
             </div>
 
             <div>
@@ -20,7 +20,9 @@
                     <template>
                         <b-taglist attached>
                             <b-tag type="is-dark" size="is-normal">Design By</b-tag>
-                            <a href="https://github.com/fuyukivila" target="_blank"><b-tag type="is-info" size="is-normal">{{ author
+                          <a href="https://github.com/fuyukivila" target="_blank">
+                            <b-tag size="is-normal" type="is-info is-light">{{
+                                author
                                     }}</b-tag></a>
                         </b-taglist>
                     </template>

@@ -5,7 +5,11 @@ export function getList(pageNo, size, tab) {
     return request(({
         url: '/post/list',
         method: 'get',
-        params: { pageNo: pageNo, size: size, tab: tab }
+        params: {
+            pageNo: pageNo,
+            size: size,
+            tab: tab
+        }
     }))
 }
 
@@ -28,6 +32,7 @@ export function getTopic(id) {
         }
     })
 }
+
 // 获取详情页推荐
 export function getRecommendTopics(id) {
     return request({
@@ -50,6 +55,6 @@ export function update(topic) {
 export function deleteTopic(id) {
     return request({
         url: `/post/delete/${id}`,
-        method: 'delete'
+        method: 'delete',
     })
 }
