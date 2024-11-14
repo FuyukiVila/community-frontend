@@ -43,10 +43,6 @@
           <b-navbar-item :to="{ path: `/member/${user.username}/setting` }" tag="router-link">
             ⚙ 设置中心
           </b-navbar-item>
-          <hr v-if="user.isAdmin" class="dropdown-divider">
-          <b-navbar-item v-if="user.isAdmin" :to="{path:`/admin`}" tag="router-link">
-            👑 管理中心
-          </b-navbar-item>
           <hr class="dropdown-divider">
           <b-navbar-item tag="a" @click="logout"> 👋 退出登录
           </b-navbar-item>

@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 用户主页
 export function getInfoByName(username, page, size) {
     return request({
-        url: '/ums/user/' + username,
+        url: `/ums/user/${username}`,
         method: 'get',
         params: {
             pageNo: page,
@@ -26,5 +26,21 @@ export function update(user) {
         url: '/ums/user/update',
         method: 'post',
         data: user
+    })
+}
+
+// 封禁
+export function ban(username) {
+    return request({
+        url: `/ums/user/ban/${username}`,
+        method: 'get',
+    })
+}
+
+// 解封
+export function unban(username) {
+    return request({
+        url: `/ums/user/unban/${username}`,
+        method: 'get',
     })
 }

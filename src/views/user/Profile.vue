@@ -6,6 +6,9 @@
           <div slot="header" class="has-text-centered">
             <el-avatar :size="64" :src="`https://cn.gravatar.com/avatar/${topicUser.id}?s=164&d=monsterid`"/>
             <p class="mt-3">{{ topicUser.alias || topicUser.username }}</p>
+            <b-tag v-if="!topicUser.status" type="is-danger">
+              封禁中
+            </b-tag>
           </div>
           <div>
             <p class="content">积分：<code>{{ topicUser.score }}</code></p>
@@ -13,6 +16,14 @@
             <p class="content">粉丝：<code>{{ profile.followerCount }}</code></p>
             <p class="content">入驻：{{ dayjs(topicUser.createTime).format("YYYY/MM/DD HH:MM:ss") }}</p>
             <p class="content">简介：{{ topicUser.bio }}</p>
+            <p class="content">
+              <el-button v-if="topicUser.status && user.isAdmin && !topicUser.isAdmin" type="danger" @click="handleBan()">
+                封禁
+              </el-button>
+              <el-button v-if="!topicUser.status && user.isAdmin && !topicUser.isAdmin" type="success" @click="handleUnban()">
+                解封
+              </el-button>
+            </p>
           </div>
         </el-card>
       </div>
@@ -79,7 +90,7 @@
 </template>
 
 <script>
-import {getInfoByName} from '@/api/user'
+import {ban, getInfoByName, unban} from '@/api/user'
 import pagination from '@/components/Pagination/index'
 import {mapGetters} from 'vuex'
 import {deleteTopic} from '@/api/post'
@@ -126,6 +137,28 @@ export default {
         this.$message.success(message)
         this.fetchUserById()
       })
+    },
+    handleBan() {
+      if (this.topicUser.status) {
+        ban(this.topicUser.username).then(value => {
+          const {code, message} = value
+          this.$message.success(message)
+          this.fetchUserById()
+        }).catch(error => {
+          console.log(error)
+        })
+      }
+    },
+    handleUnban() {
+      if (!this.topicUser.status) {
+        unban(this.topicUser.username).then(value => {
+          const {code, message} = value
+          this.$message.success(message)
+          this.fetchUserById()
+        }).catch(error => {
+          console.log(error)
+        })
+      }
     }
   }
 }
