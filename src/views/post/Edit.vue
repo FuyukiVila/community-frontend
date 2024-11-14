@@ -86,9 +86,11 @@ export default {
         const {data} = response;
         console.log(data);
         setTimeout(() => {
-          this.$router.push({
+          this.$router.replace({
             name: "post-detail",
             params: {id: data.id},
+          }).catch(error => {
+            console.log(error)
           });
         }, 800);
       }).catch(error => {

@@ -139,7 +139,11 @@ export default {
 
         if (code === 200) {
           setTimeout(() => {
-            this.$router.push({path: '/'})
+            this.$router.push({path: '/'}).catch(
+                error => {
+                  console.log(error)
+                }
+            )
           }, 500)
         }
       }).catch(error => {

@@ -92,7 +92,9 @@ export default {
 
                 setTimeout(() => {
                   this.loading = false;
-                  this.$router.replace({path: "/"});
+                  this.$router.replace({path: "/"}).catch(error => {
+                    console.log(error)
+                  });
                 }, 0.1 * 1000);
               })
               .catch(() => {

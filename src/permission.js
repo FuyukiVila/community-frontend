@@ -4,9 +4,9 @@ import getPageTitle from '@/utils/get-page-title'
 
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css'
-import { getToken } from "@/utils/auth"; // progress bar style
+import {getToken} from "@/utils/auth"; // progress bar style
 
-NProgress.configure({ showSpinner: false }) // NProgress Configuration
+NProgress.configure({showSpinner: false}) // NProgress Configuration
 
 router.beforeEach(async (to, from, next) => {
     // start progress bar
@@ -19,7 +19,7 @@ router.beforeEach(async (to, from, next) => {
     if (hasToken) {
         if (to.path === '/login') {
             // 登录，跳转首页
-            next({ path: '/' })
+            next({path: '/'})
             NProgress.done()
         } else {
             // 获取用户信息
@@ -28,8 +28,7 @@ router.beforeEach(async (to, from, next) => {
         }
     } else if (!to.meta.requireAuth) {
         next()
-    }
-    else {
+    } else {
         next('/login')
     }
 })

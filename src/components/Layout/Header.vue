@@ -10,7 +10,7 @@
       <template slot="end">
         <b-navbar-item tag="div">
           <b-field position="is-centered">
-            <b-input v-model="searchKey" class="s_input" clearable placeholder="搜索帖子、标签和用户" rounded
+            <b-input v-model="searchKey" class="s_input" clearable placeholder="搜索帖子" rounded
                      width="80%" @keyup.enter.native="search()"/>
 
             <p class="control">
@@ -99,9 +99,9 @@ export default {
       this.$store.dispatch('user/logout').then(() => {
         this.$message.info('退出登录成功')
         setTimeout(() => {
-          if (this.$route.path !== '/') {
-            this.$router.replace({path: '/'})
-          }
+          this.$router.replace({path: '/'}).catch(error => {
+            console.log(error)
+          })
         }, 500)
       })
     },
@@ -115,7 +115,10 @@ export default {
         })
         return false
       }
-      this.$router.replace({path: '/search?key=' + this.searchKey})
+      this.searchKey = this.searchKey.trim()
+      this.$router.replace({path: '/search?key=' + this.searchKey}).catch(error => {
+        console.log(error)
+      })
     }
   }
 }

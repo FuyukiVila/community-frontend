@@ -131,6 +131,8 @@ export default {
               this.$router.push({
                 name: 'post-detail',
                 params: {id: data.id}
+              }).catch(error => {
+                console.log(error)
               })
             }, 800)
           })

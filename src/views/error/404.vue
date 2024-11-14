@@ -34,9 +34,10 @@ export default {
                 this.times--;
                 if (this.times === 0) {
                     clearInterval(this.timer);
-                    if (this.$route.path !== '/') {
-                        this.$router.push({ path: '/' });
-                    }
+                  this.$router.replace({path: '/'}).catch(error => {
+                    console.log(error)
+                  });
+
                 }
             }, 1000);
         }

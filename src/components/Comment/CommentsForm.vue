@@ -48,7 +48,7 @@ export default {
   methods: {
     async onSubmit() {
       if (!this.commentText.trim()) {
-        this.$message.error({
+        this.$message.info({
           message: '评论不能为空',
         })
         return
