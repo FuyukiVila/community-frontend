@@ -1,5 +1,13 @@
 # frontend
 
+## 技术栈
+
+- vue2
+- vue-router
+- vuex
+- element-ui
+- buefy
+
 ## Project setup
 ```
 yarn install
