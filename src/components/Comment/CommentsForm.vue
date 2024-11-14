@@ -57,10 +57,7 @@ export default {
         this.$emit('loadComments', this.slug)
         this.$message.success('留言成功')
       } catch (e) {
-        this.$buefy.toast.open({
-          message: `Cannot comment this story. ${e}`,
-          type: 'is-danger'
-        })
+        console.log(e)
       } finally {
         this.isLoading = false
       }

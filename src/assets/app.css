@@ -16,12 +16,6 @@ html {
         Segoe UI Symbol, Android Emoji, EmojiSymbols;
 }
 
-/*背景图*/
-/*body {*/
-/*    background-image: url('https://api.mz-moe.cn/img.php');*/
-/*    background-repeat: round;*/
-/*}*/
-
 @media (min-width: 768px) {
     .container {
         width: 760px;
