@@ -2,7 +2,7 @@
 <template>
   <article class="media">
     <figure class="media-left image is-48x48">
-      <img :src="`https://cn.gravatar.com/avatar/${comment.userId}?s=164&d=monsterid`" alt="">
+      <el-avatar :src="`${comment.avatar}` || `https://cn.gravatar.com/avatar/${comment.userId}?s=164&d=monsterid`" alt=""/>
     </figure>
     <div class="media-content">
       <div class="content">
@@ -15,7 +15,12 @@
       </div>
     </div>
     <div v-if="token && (user.id === comment.userId || user.isAdmin)" class="media-right">
-      <b-button :disabled="isLoading" size="is-small" type="is-danger" @click="deleteComment()">删除</b-button>
+      <el-popconfirm
+          title="确定删除这条评论吗？"
+          @confirm="deleteComment()"
+      >
+        <b-button slot="reference" :disabled="isLoading" size="is-small" type="is-danger">删除</b-button>
+      </el-popconfirm>
     </div>
   </article>
 </template>

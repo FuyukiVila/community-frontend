@@ -51,10 +51,15 @@
               <span class="tag">编辑</span>
             </router-link>
             <a class="level-item">
+              <el-popconfirm
+                  title="确定删除这篇文章吗？"
+                  @confirm="handleDelete(topic.id)"
+              >
               <span v-if=" user.id === topicUser.id || user.isAdmin"
                     class="tag"
-                    @click="handleDelete(topic.id)"
+                    slot="reference"
               >删除</span>
+              </el-popconfirm>
             </a>
           </div>
         </nav>

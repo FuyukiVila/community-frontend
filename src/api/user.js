@@ -44,3 +44,11 @@ export function unban(username) {
         method: 'get',
     })
 }
+
+// 删除头像
+export function deleteAvatar(username) {
+    return request({
+        url: `/ums/user/delete_avatar/${username}`,
+        method: 'delete'
+    })
+}

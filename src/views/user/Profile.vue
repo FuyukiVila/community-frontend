@@ -4,7 +4,28 @@
       <div class="column is-one-quarter">
         <el-card shadow="never">
           <div slot="header" class="has-text-centered">
-            <el-avatar :size="64" :src="`https://cn.gravatar.com/avatar/${topicUser.id}?s=164&d=monsterid`"/>
+            <el-upload
+                :before-upload="beforeAvatarUpload"
+                :disabled="!token || topicUser.id !== user.id"
+                :headers="{Authorization: 'Bearer ' + token}"
+                :multiple="false"
+                :on-success="handleAvatarSuccess"
+                :show-file-list="false"
+                action="http://127.0.0.1:8081/ums/user/upload_avatar"
+                class="avatar-uploader"
+            >
+              <el-avatar v-if="imageURL" :size="128" :src="imageURL" class="avatar"/>
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+
+            <el-popconfirm
+                v-if="token && user.isAdmin && !topicUser.isAdmin"
+                title="确定删除这个头像吗？"
+                @confirm="handleDeleteAvatar"
+            >
+              <el-button slot="reference" circle icon="el-icon-delete"></el-button>
+            </el-popconfirm>
+
             <p class="mt-3">{{ topicUser.alias || topicUser.username }}</p>
             <b-tag v-if="!topicUser.status" type="is-danger">
               封禁中
@@ -90,7 +111,7 @@
 </template>
 
 <script>
-import {ban, getInfoByName, unban} from '@/api/user'
+import {ban, deleteAvatar, getInfoByName, unban} from '@/api/user'
 import pagination from '@/components/Pagination/index'
 import {mapGetters} from 'vuex'
 import {deleteTopic} from '@/api/post'
@@ -100,6 +121,7 @@ export default {
   components: {pagination},
   data() {
     return {
+      imageURL: null,
       topicUser: {},
       topics: {},
       profile: {},
@@ -120,13 +142,13 @@ export default {
     fetchUserById() {
       getInfoByName(this.$route.params.username, this.page.current, this.page.size).then((res) => {
         const {data} = res
-        console.log(data.user)
         this.topicUser = data.user
         this.profile = data.profile
         this.page.current = data.topics.current
         this.page.size = data.topics.size
         this.page.total = data.topics.total
         this.topics = data.topics.records
+        this.imageURL = data.user.avatar
       }).catch(error => {
         console.log(error)
       })
@@ -159,6 +181,35 @@ export default {
           console.log(error)
         })
       }
+    },
+    beforeAvatarUpload(file) {
+      const maxSize = 5;
+
+      if (!["image/jpg", "image/png", "image/jpeg", "image/bmp"].includes(file.type)) {
+        this.$message.error('只能上传JPG/JPEG/PNG/BMP格式！');
+      }
+      if (!file.size > maxSize) {
+        this.$message.error('上传头像图片大小不能超过 5MB!');
+      }
+      return true
+    },
+    handleAvatarSuccess(res, file) {
+      const {code, message} = res;
+      if (code === 200) {
+        this.$message.success(message)
+        this.fetchUserById()
+      } else {
+        this.$message.error(message)
+      }
+    },
+    handleDeleteAvatar() {
+      deleteAvatar(this.topicUser.username).then(value => {
+        const {code, message} = value
+        this.$message.success(message)
+        this.fetchUserById()
+      }).catch(error => {
+        console.log(error)
+      })
     }
   }
 }
