@@ -103,12 +103,59 @@ export default {
         pin: true
       },
       cache: {
-        enable: true
+        enable: false
       },
-      mode: 'sv'
+      mode: 'sv',
+      upload: {
+        accept: 'image/jpg,image/jpeg,image/png,image/bmp,image/gif,' +
+            'video/mp4,video/avi,video/mov,' +
+            'audio/mp3,audio/wav,audio/flac,' +
+            'application/zip,application/x-rar-compressed,application/x-7z-compressed',
+        url: 'http://127.0.0.1:8081/file/upload',
+        // 30m
+        max: 1024 * 1024 * 30,
+        linkToImgUrl: '',
+        fieldName: 'file',
+        multiple: false,
+        format: (file, response) => {
+          const res = JSON.parse(response);
+          if (res.code === 200) {
+            this.insertFile(res.data)
+          } else {
+            throw new Error(res.message);
+          }
+        },
+        headers: {
+          'Authorization': 'Bearer ' + this.$store.getters.token // 如果需要认证
+        },
+        withCredentials: true, // 如果需要携带 cookies
+        timeout: 60000 // 超时时间，单位毫秒
+      }
     })
   },
   methods: {
+    insertFile(url) {
+      // 根据文件类型插入不同的 Markdown 格式
+      if (url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.png') || url.endsWith('.gif') || url.endsWith('.bmp')) {
+        const imageMarkdown = `![](${url})`;
+        console.log('insert image')
+        this.contentEditor.insertMD(imageMarkdown);
+      } else if (url.endsWith('.mp4') || url.endsWith('.avi') || url.endsWith('.mov')) {
+        const videoMarkdown = `<video src="${url}" controls></video>`;
+        console.log('insert video')
+        this.contentEditor.insertMD(videoMarkdown);
+      } else if (url.endsWith('.mp3') || url.endsWith('.wav') || url.endsWith('.flac')) {
+        const audioMarkdown = `<audio src="${url}" controls></audio>`;
+        console.log('insert audio')
+        this.contentEditor.insertMD(audioMarkdown);
+      } else if (url.endsWith('.zip') || url.endsWith('.rar') || url.endsWith('.7z')) {
+        const fileMarkdown = `[下载文件](${url})`;
+        console.log('insert file')
+        this.contentEditor.insertMD(fileMarkdown);
+      } else {
+        console.warn('未知文件类型:', url);
+      }
+    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
