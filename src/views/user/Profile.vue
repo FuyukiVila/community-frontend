@@ -11,7 +11,7 @@
                 :multiple="false"
                 :on-success="handleAvatarSuccess"
                 :show-file-list="false"
-                action="http://127.0.0.1:8081/ums/user/upload_avatar"
+                :action="avatarUrl"
                 class="avatar-uploader"
             >
               <el-avatar v-if="imageURL" :size="128" :src="imageURL" class="avatar"/>
@@ -121,6 +121,7 @@ export default {
   components: {pagination},
   data() {
     return {
+      avatarUrl: process.env.VUE_APP_SERVER_URL + '/ums/user/upload_avatar',
       imageURL: null,
       topicUser: {},
       topics: {},

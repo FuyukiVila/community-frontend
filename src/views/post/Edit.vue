@@ -110,7 +110,7 @@ export default {
               'video/mp4,video/avi,video/mov,' +
               'audio/mp3,audio/wav,audio/flac,' +
               'application/zip,application/x-rar-compressed,application/x-7z-compressed',
-          url: 'http://127.0.0.1:8081/file/upload',
+          url: process.env.VUE_APP_SERVER_URL + '/file/upload',
           // 30m
           max: 1024 * 1024 * 30,
           linkToImgUrl: '',
