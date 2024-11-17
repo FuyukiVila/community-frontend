@@ -63,7 +63,7 @@ export default {
           {type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']}
         ],
         mobile: [
-          {required: true, message: '请输入手机号', trigger: 'blur'},
+          {message: '请输入手机号', trigger: 'blur', pattern: "[0-9]"},
         ]
       }
     }

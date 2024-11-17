@@ -1,13 +1,16 @@
-
 <template>
   <article class="media">
-    <figure class="media-left image is-48x48">
-      <el-avatar :src="`${comment.avatar}` || `https://cn.gravatar.com/avatar/${comment.userId}?s=164&d=monsterid`" alt=""/>
-    </figure>
+    <router-link :to="{ path: `/member/${comment.username}/home` }">
+      <figure class="media-left image is-48x48">
+        <el-avatar :src="`${comment.avatar}` || `https://cn.gravatar.com/avatar/${comment.userId}?s=164&d=monsterid`" alt=""/>
+      </figure>
+    </router-link>
     <div class="media-content">
       <div class="content">
         <p>
-          <strong>{{ comment.username }}</strong>
+          <router-link :to="{ path: `/member/${comment.username}/home` }">
+            <strong>{{ comment.alias }}</strong> <span class="is-size-7 has-text-grey">{{ '@' + comment.username }}</span>
+          </router-link>
           <small class="ml-2">{{ comment.createTime | date }}</small>
           <br/>
           <span class="comment-text">{{ comment.content }}</span>
