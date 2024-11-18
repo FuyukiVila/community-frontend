@@ -19,9 +19,6 @@
             <el-form-item :rules="rules.email" label="邮箱" prop="email">
               <el-input v-model="user.email"/>
             </el-form-item>
-            <el-form-item :rules="rules.mobile" label="手机号" prop="mobile">
-              <el-input v-model="user.mobile"/>
-            </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="submitForm('form')">提交</el-button>
               <el-button @click="resetForm('form')">重置</el-button>
@@ -62,9 +59,6 @@ export default {
           {required: true, message: '请输入邮箱地址', trigger: 'blur'},
           {type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']}
         ],
-        mobile: [
-          {message: '请输入手机号', trigger: 'blur', pattern: "[0-9]"},
-        ]
       }
     }
   },

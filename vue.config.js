@@ -4,7 +4,11 @@ module.exports = defineConfig({
     devServer: {
         client: {
             overlay: false
-        }
+        },
+        historyApiFallback: true,
+        compress: true,
+        allowedHosts: "all",
+        webSocketServer: false,
     },
-    publicPath: './'
+    publicPath: './',
 })
